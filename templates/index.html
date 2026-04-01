@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG Tracker - Corporate Sustainability Scores</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon" id="themeIcon"></i>
+    </div>
+
+    {% include 'components/navbar.html' %}
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Track Corporate 
+                    <span class="highlight">Sustainability.</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Search, compare, and analyze ESG scores of India's top companies. 
+                    Make informed decisions for sustainable investing and careers.
+                </p>
+
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" class="search-input" 
+                           placeholder="Search company... (TCS, Infosys, Reliance)" 
+                           oninput="searchCompanies(this.value)">
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="quick-stats">
+                    <div class="quick-stat">
+                        <span class="stat-number">15</span>
+                        <span class="stat-label">Companies</span>
+                    </div>
+                    <div class="quick-stat">
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">Years Data</span>
+                    </div>
+                    <div class="quick-stat">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">ESG Pillars</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What is ESG Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">What is ESG?</h2>
+            <div class="esg-grid">
+                <div class="esg-card environmental">
+                    <div class="esg-icon">🌍</div>
+                    <h3>Environmental</h3>
+                    <p>How a company impacts the planet — carbon emissions, waste management, water usage, renewable energy adoption.</p>
+                    <div class="esg-tag">Climate & Nature</div>
+                </div>
+                <div class="esg-card social">
+                    <div class="esg-icon">👥</div>
+                    <h3>Social</h3>
+                    <p>How a company treats people — employee welfare, diversity, community engagement, labor practices, safety.</p>
+                    <div class="esg-tag">People & Community</div>
+                </div>
+                <div class="esg-card governance">
+                    <div class="esg-icon">⚖️</div>
+                    <h3>Governance</h3>
+                    <p>How a company is managed — board diversity, transparency, ethics, anti-corruption, shareholder rights.</p>
+                    <div class="esg-tag">Ethics & Leadership</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Cards Section -->
+    <section class="section section-dark">
+        <div class="container">
+            <h2 class="section-title">Top ESG Companies in India</h2>
+            <div class="company-cards" id="companyCards">
+                <!-- Cards loaded by JavaScript -->
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Loading companies...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industry Overview -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Industry ESG Overview</h2>
+            <div id="industryCards" class="industry-grid">
+                <!-- Loaded by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="cta-box">
+                <h3>Want to compare companies?</h3>
+                <p>Select 2-3 companies and see how they stack up against each other</p>
+                <a href="/compare" class="btn btn-primary">
+                    <i class="fas fa-balance-scale"></i> Compare Companies
+                </a>
+            </div>
+        </div>
+    </section>
+
+    {% include 'components/footer.html' %}
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            loadCompanyCards();
+            loadIndustryCards();
+        });
+    </script>
+</body>
+</html>

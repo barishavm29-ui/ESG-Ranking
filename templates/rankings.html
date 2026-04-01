@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG Rankings - ESG Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon" id="themeIcon"></i>
+    </div>
+
+    {% include 'components/navbar.html' %}
+
+    <section class="rankings-section">
+        <div class="container">
+            <div class="page-header">
+                <h1>🏆 ESG Rankings</h1>
+                <p>Top Indian companies ranked by their ESG performance</p>
+            </div>
+
+            <!-- Year Filter -->
+            <div class="filter-bar">
+                <label>Select Year:</label>
+                <select id="yearFilter" onchange="loadRankings(this.value)">
+                    <option value="2026" selected>2026</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                </select>
+            </div>
+
+            <!-- Rankings Table -->
+            <div class="chart-card-full">
+                <table class="rankings-table" id="rankingsTable">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Company</th>
+                            <th>Industry</th>
+                            <th>Environmental</th>
+                            <th>Social</th>
+                            <th>Governance</th>
+                            <th>Overall</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rankingsBody">
+                        <tr>
+                            <td colspan="8" class="loading-text">Loading rankings...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Rankings Chart -->
+            <div class="chart-card-full">
+                <h3>📊 Visual Rankings</h3>
+                <div id="rankingsChart"></div>
+            </div>
+        </div>
+    </section>
+
+    {% include 'components/footer.html' %}
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            loadRankings(2026);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company ESG Details - ESG Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon" id="themeIcon"></i>
+    </div>
+
+    {% include 'components/navbar.html' %}
+
+    <section class="company-section">
+        <div class="container">
+
+            <!-- Company Header -->
+            <div class="company-header" id="companyHeader">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Loading company details...</p>
+                </div>
+            </div>
+
+            <!-- Score Cards -->
+            <div class="score-cards" id="scoreCards"></div>
+
+            <!-- Charts Row -->
+            <div class="charts-row">
+                <div class="chart-card">
+                    <h3>📊 ESG Breakdown</h3>
+                    <div id="radarChart"></div>
+                </div>
+                <div class="chart-card">
+                    <h3>📈 Score Trend (2022-2026)</h3>
+                    <div id="trendChart"></div>
+                </div>
+            </div>
+
+            <!-- ML Prediction -->
+            <div class="prediction-card" id="predictionCard"></div>
+
+            <!-- Strengths & Weaknesses -->
+            <div class="analysis-row">
+                <div class="analysis-card" id="strengthsCard">
+                    <h3>💪 Strengths</h3>
+                </div>
+                <div class="analysis-card" id="weaknessesCard">
+                    <h3>⚠️ Areas for Improvement</h3>
+                </div>
+            </div>
+
+            <!-- Industry Comparison -->
+            <div class="chart-card-full">
+                <h3>🏭 Industry Comparison</h3>
+                <div id="industryCompChart"></div>
+            </div>
+
+            <!-- Historical Data Table -->
+            <div class="chart-card-full">
+                <h3>📋 Historical ESG Data</h3>
+                <table class="data-table" id="historyTable">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Environmental</th>
+                            <th>Social</th>
+                            <th>Governance</th>
+                            <th>Overall</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="/compare" class="btn btn-primary">
+                    <i class="fas fa-balance-scale"></i> Compare with Others
+                </a>
+                <a href="/rankings" class="btn btn-secondary">
+                    <i class="fas fa-trophy"></i> View Rankings
+                </a>
+                <a href="/" class="btn btn-outline">
+                    <i class="fas fa-arrow-left"></i> Back to Search
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    {% include 'components/footer.html' %}
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        const companyId = "{{ company_id }}";
+        window.addEventListener('DOMContentLoaded', () => {
+            loadCompanyDetails(companyId);
+        });
+    </script>
+</body>
+</html>

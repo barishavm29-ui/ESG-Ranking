@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Companies - ESG Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon" id="themeIcon"></i>
+    </div>
+
+    {% include 'components/navbar.html' %}
+
+    <section class="compare-section">
+        <div class="container">
+            <div class="page-header">
+                <h1>⚖️ Compare Companies</h1>
+                <p>Select 2-3 companies to compare their ESG performance side by side</p>
+            </div>
+
+            <!-- Company Selection -->
+            <div class="selection-container">
+                <div class="select-group">
+                    <label>Company 1:</label>
+                    <select id="company1" class="company-select" onchange="checkSelection()">
+                        <option value="">Select company...</option>
+                    </select>
+                </div>
+                <div class="select-group">
+                    <label>Company 2:</label>
+                    <select id="company2" class="company-select" onchange="checkSelection()">
+                        <option value="">Select company...</option>
+                    </select>
+                </div>
+                <div class="select-group">
+                    <label>Company 3 (Optional):</label>
+                    <select id="company3" class="company-select" onchange="checkSelection()">
+                        <option value="">Select company...</option>
+                    </select>
+                </div>
+                <button id="compareBtn" class="btn btn-primary" onclick="compareCompanies()" disabled>
+                    <i class="fas fa-balance-scale"></i> Compare Now
+                </button>
+            </div>
+
+            <!-- Comparison Results -->
+            <div id="comparisonResults" style="display: none;">
+
+                <!-- Comparison Table -->
+                <div class="chart-card-full">
+                    <h3>📊 Side-by-Side Comparison</h3>
+                    <table class="comparison-table" id="comparisonTable">
+                        <thead>
+                            <tr id="compTableHead"></tr>
+                        </thead>
+                        <tbody id="compTableBody"></tbody>
+                    </table>
+                </div>
+
+                <!-- Comparison Chart -->
+                <div class="chart-card-full">
+                    <h3>📈 Visual Comparison</h3>
+                    <div id="comparisonChart"></div>
+                </div>
+
+                <!-- Trend Comparison -->
+                <div class="chart-card-full">
+                    <h3>📉 Historical Trend Comparison</h3>
+                    <div id="trendCompChart"></div>
+                </div>
+
+                <!-- Winner Summary -->
+                <div class="winner-card" id="winnerCard"></div>
+            </div>
+        </div>
+    </section>
+
+    {% include 'components/footer.html' %}
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            loadCompanyDropdowns();
+        });
+    </script>
+</body>
+</html>
